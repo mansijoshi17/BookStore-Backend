@@ -33,7 +33,6 @@ router.get('/list', async (req, res) => {
 
 router.post('/addbook', (req, res) => {
   var sql = "INSERT INTO books (name, author, price, imgurl ) VALUES ('" + req.body.name + "','" + req.body.author + "','" + req.body.price + "','" + req.body.imgurl + "')";
-  // Bulk insert using nested array [ [a,b],[c,d] ] will be flattened to (a,b),(c,d)
   connection.query(sql, function (err, result) {
     if (err) {
       console.log(err);
@@ -48,7 +47,6 @@ router.post('/addbook', (req, res) => {
 router.delete('/deletebook/:id', (req, res) => {  
   let id = parseInt(req.params.id);
   var sql ='DELETE FROM books WHERE id=?';
-  // Bulk insert using nested array [ [a,b],[c,d] ] will be flattened to (a,b),(c,d)
   connection.query(sql, id, function (err, result) {
     if (err) {
       console.log(err);
@@ -60,11 +58,10 @@ router.delete('/deletebook/:id', (req, res) => {
   });
 })
 
-
+//This get request for get the particular id values for edit.
 router.get('/edit/:id', (req, res) => {  
   let id = parseInt(req.params.id);
   var sql ='SELECT * FROM books WHERE id=?';
-  // Bulk insert using nested array [ [a,b],[c,d] ] will be flattened to (a,b),(c,d)
   connection.query(sql, id, function (err, result) {
     if (err) {
       console.log(err);
@@ -85,7 +82,6 @@ router.put('/update/book/:id', (req, res) => {
   console.log("u",id);
   var sql ='UPDATE books SET name=?, author=?, price=?, imgurl=?  WHERE id=?';
   let data = [req.body.name, req.body.author, req.body.price, req.body.imgurl, id]
-  // Bulk insert using nested array [ [a,b],[c,d] ] will be flattened to (a,b),(c,d)
   connection.query(sql, data, function (err, result) {
     if (err) {
       console.log(err);
